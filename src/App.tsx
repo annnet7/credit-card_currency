@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from './components/Card';
 
 
 function App() {
+  const [rotateCard, setRotateCard]=useState(false);
   return (
     <div className="App">
-      <Card />
+      <button onClick={() => setRotateCard(!rotateCard)}>Turn!</button>
+      <Card rotateCard={rotateCard}/>
     </div>
   );
 }
