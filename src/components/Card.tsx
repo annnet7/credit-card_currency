@@ -51,7 +51,8 @@ const CardContent = styled.div`
 
 const CardFront = styled(CardContent)``;
 const CardBack = styled(CardContent)`
-transform: rotateY(180deg);
+    justify-content: flex-start;
+    transform: rotateY(180deg);
 `;
 
 interface RowProps {
@@ -93,6 +94,19 @@ const LogoImg = styled.img`
     height: 32px;
 `;
 
+const CardCVV = styled.div`
+    width: 100%;
+    background: #ffffff;
+    color: #333333;
+    text-align: right;
+
+    font-size:16px;
+    font-weight: 600;
+    line-height: 2;
+    padding: 10px;
+    margin: 30px 0;
+    box-sizing: border-box;
+`;
 
 //Interface to set card props:
 interface CardProps {
@@ -116,7 +130,7 @@ function Card(props:CardProps) {
                 </Row>
             </CardFront>
             <CardBack>
-                lalala
+                <CardCVV>355</CardCVV>
             </CardBack>
         </CardInner>
         
