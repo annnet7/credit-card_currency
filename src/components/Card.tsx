@@ -28,13 +28,23 @@ const CardInner = styled.div<CardInnerProps>`
     transform: rotateY(${props => props.rotateDeg || '0'}deg);
   
 `;
-
-const CardContent = styled.div`
+interface cardContentProps {
+    cardBackground?: string,
+}
+const CardContent = styled.div<cardContentProps>`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: flex-start;
-    background: #343345;     
+
+
+    background: #343345;  
+    
+    backround-image: url(${props => props.cardBackground || ""});
+    background-repeat: no-repeat;
+    backround-size: cover;
+    background-position: center;
+
     color: #ffffff;
     border-radius: 25px;
     padding 30px 50px;
@@ -46,6 +56,11 @@ const CardContent = styled.div`
     position: absolute;
     -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
+
+    @media only screen and (max-width: 450px){
+        border-radius: 5.5vw;
+        padding 6.7vw 11vw;
+    }
    
 `;
 
@@ -77,21 +92,42 @@ const SumText = styled.p`
     line-height: 1;
     margin: 0;
     margin-right: 15px;
+    @media only screen and (max-width: 450px){
+        font-size: 7.1vw;
+    }
 `;
 const Currency = styled.p`
     font-size: 18px;
     font-weight: 800;
     line-height: 1;
     margin: 0;
+    @media only screen and (max-width: 450px){
+        font-size: 4vw;
+    }
 `;
 const CardNum = styled.p`
     font-size: 24px;
     font-weight: 400;
     line-height: 2;
     margin: 20px 0px;
+    @media only screen and (max-width: 450px){
+        font-size: 5.3vw;
+        margin: 4vw 0px;
+    }
+`;
+const CardText = styled.div`
+    font-size: 18px;
+    font-weight: 400;
+    
+    @media only screen and (max-width: 450px){
+        font-size: 4vw;
+    }
 `;
 const LogoImg = styled.img`
     height: 32px;
+    @media only screen and (max-width: 450px){
+        height: 7.1vw;
+    }
 `;
 
 const CardCVV = styled.div`
@@ -106,11 +142,24 @@ const CardCVV = styled.div`
     padding: 10px;
     margin: 30px 0;
     box-sizing: border-box;
+    @media only screen and (max-width: 450px){
+        font-size:4vw;
+        padding: 2.2vw;
+        margin: 6.7vw 0;
+    }
 `;
 
 //Interface to set card props:
 interface CardProps {
-    rotateCard:boolean;
+    rotateCard:boolean,
+
+    cardSum: string | number,
+    currency: string,
+    cardNumString: string,
+    cardPeriod: string,
+    paySysLogo: string,
+    paySysName: string
+
 }
 
 
@@ -118,15 +167,15 @@ function Card(props:CardProps) {
   return (
     <CardWrap>        
         <CardInner rotateDeg={props.rotateCard?'180':'0'}>
-            <CardFront>
-                <RowStart alignItems='baseline'><SumText>50000.00</SumText><Currency>USD</Currency></RowStart>
-                <CardNum>xxxx xxxx xxxx xxxx</CardNum>
+            <CardFront cardBackground="https://www.nlspacecampus.eu/cache/3/1920x1080/mob-shutterstock-481251031-20210610135721_1920x1080.jpg">
+                <RowStart alignItems='baseline'><SumText>{props.cardSum}</SumText><Currency>{props.currency}</Currency></RowStart>
+                <CardNum>{props.cardNumString}</CardNum>
                 <Row>
-                    <div>xx/xx</div>
+                    <CardText>{props.cardPeriod}</CardText>
                 <RowEnd>
-                    <LogoImg src="https://logos-world.net/wp-content/uploads/2020/09/Mastercard-Logo.png" alt="logo" />
-                <div>MasterCard</div>   
-                    </RowEnd> 
+                    <LogoImg src={props.paySysLogo} alt="logo" />
+                    <CardText>{props.paySysName}</CardText>   
+                </RowEnd> 
                 </Row>
             </CardFront>
             <CardBack>
